@@ -3,12 +3,19 @@ import AnyComponent from "./anyComponent.jsx";
 
 const Home = () => {
   const [state, setState] = useState("");
+  const newArr = [];
 
-  function handleState(e) {
+  const handleState = (e) => {
     setState(e.target.value);
-  }
+    
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    newArr.push(state);
+    const newArr2 = newArr.map((item) =>{return item})
 
-  function handleSubmit() {}
+    console.log(newArr2);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -23,9 +30,6 @@ const Home = () => {
         />
         <AnyComponent state={state} />
       </div>
-      <button type="submit" className="btn btn-primary">
-        Submit
-      </button>
     </form>
   );
 };
