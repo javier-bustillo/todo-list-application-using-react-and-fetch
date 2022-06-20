@@ -3,7 +3,7 @@ import AnyComponent from "./anyComponent.jsx";
 
 const Home = () => {
   const [state, setState] = useState("");
-  const newArr = [];
+  const [state1, setState1] = useState([]);
 
   const handleState = (e) => {
     setState(e.target.value);
@@ -11,11 +11,10 @@ const Home = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    newArr.push(state);
-    const newArr2 = newArr.map((item) =>{return item})
-
-    console.log(newArr2);
+    setState1(state);
+    
   };
+  console.log(setState1([...state1, state]));
 
   return (
     <form onSubmit={handleSubmit}>

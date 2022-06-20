@@ -4,7 +4,7 @@ const AnyComponent = ({ state }) => {
   return (
     <div className="container bg-secondary">
       <ul className="list-group">
-        <li className="list-group-item">{state}</li>
+        <li className="list-group-item"></li>
         <li className="list-group-item"></li>
         <li className="list-group-item"></li>
         <li className="list-group-item"></li>
