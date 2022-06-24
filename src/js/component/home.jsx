@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-import AnyComponent from "./anyComponent.jsx";
 
 const Home = () => {
-  const [state, setState] = useState("");
-  const [state1, setState1] = useState([]);
+  const [input, setInput] = useState(""); /* tareas */
+  const [inputList, setInputList] = useState([]); /* lista tareas */
 
   const handleState = (e) => {
-    setState(e.target.value);
-    
+    setInput(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    setState1(state);
-    
+    /* setea el valor de ...inputList con los valores de input */ 
+    /* inputList lista de states */ 
+    setInputList([...inputList, input]);
   };
-  console.log(setState1([...state1, state]));
 
   return (
     <form onSubmit={handleSubmit}>
@@ -27,7 +25,18 @@ const Home = () => {
           aria-describedby="basic-addon1"
           onChange={handleState}
         />
-        <AnyComponent state={state} />
+        {/* representa de manera gráfica los datos con los valores de inputList */}
+        <div className="container bg-secondary">
+          <ul className="list-group">
+            {inputList.map(function (currentValue, index) {
+              return (
+                <li key={index} className="list-group-item">
+                  {currentValue}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
     </form>
   );
