@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Home = () => {
   const [input, setInput] = useState(""); /* tareas */
   const [inputList, setInputList] = useState([]); /* lista tareas */
 
   const handleState = (e) => {
-    setInput(e.target.value);
+    setInput({ label: e.target.value, done: false });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,6 +16,29 @@ const Home = () => {
 
   const handleButton = (index) => () =>
     setInputList((items) => items.filter((_, i) => i !== index));
+
+  /*  const deleteTask = (index) => {
+    let filter = taskList.filter((value, i) => index !== i);
+    setTaskList(filter);
+  }; */
+
+  useEffect(() => {
+    fetch("https://assets.breatheco.de/apis/fake/todos/user/javier-bustillo", {
+      method: "PUT",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(inputList),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }, [inputList]);
+
+  useEffect(() => {
+    {
+      fetch("https://assets.breatheco.de/apis/fake/todos/user/javier-bustillo")
+        .then((response) => response.json())
+        .then((data) => setInputList(data));
+    }
+  }, []);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -32,10 +55,10 @@ const Home = () => {
         {/* representa de manera gráfica los datos con los valores de inputList */}
         <div className="container">
           <ul className="list-group my-5">
-            {inputList.map(function (currentValue, index) {
+            {inputList.map(function (input, index) {
               return (
                 <li key={index} className="list-group-item position-relative">
-                  {currentValue}
+                  {input.label}
 
                   <button
                     type="button"
